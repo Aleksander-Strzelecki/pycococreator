@@ -91,7 +91,9 @@ def create_annotation_info(annotation_id, image_id, category_info, binary_mask,
 
     if bounding_box is None:
         bounding_box = mask.toBbox(binary_mask_encoded)
-
+        if not bounding_box.tolist():
+            printf("Empty bbox")
+            return None
     if category_info["is_crowd"]:
         is_crowd = 1
         segmentation = binary_mask_to_rle(binary_mask)
